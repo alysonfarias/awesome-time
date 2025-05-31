@@ -1,0 +1,19 @@
+{
+  "files": [
+    "dist/core/index.js",
+    "dist/react/index.js",
+    "dist/vue/index.js",
+    "dist/angular/index.js"
+  ],
+  "configPath": "@size-limit/preset-small-lib",
+  "import": {
+    "react": "React",
+    "vue": "Vue",
+    "@angular/core": "ng.core"
+  },
+  "webpack": {
+    "ignore": [
+      "**/node_modules/**"
+    ]
+  }
+} 
