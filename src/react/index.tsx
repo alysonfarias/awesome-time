@@ -71,4 +71,6 @@ export const RelativeTime: React.FC<RelativeTimeProps> = ({
       )}
     </time>
   );
-}; 
+};
+
+export { ErrorBoundary } from './ErrorBoundary'; 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RelativeTimeComponent } from './relative-time.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [RelativeTimeComponent],
   imports: [RelativeTimeComponent],
   exports: [RelativeTimeComponent]
 })

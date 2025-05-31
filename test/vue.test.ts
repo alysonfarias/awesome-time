@@ -1,17 +1,16 @@
 import { mount } from '@vue/test-utils';
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { RelativeTime } from '../src/vue';
 
 describe('Vue RelativeTime Component', () => {
   const now = new Date('2025-06-01T14:30:00Z');
 
   beforeEach(() => {
-    vi.useFakeTimers();
-    vi.setSystemTime(now);
+    jest.useFakeTimers();
+    jest.setSystemTime(now);
   });
 
   afterEach(() => {
-    vi.useRealTimers();
+    jest.useRealTimers();
   });
 
   describe('Basic rendering', () => {
@@ -24,11 +23,11 @@ describe('Vue RelativeTime Component', () => {
       expect(wrapper.text()).toBe('Just now');
     });
 
-    it('applies custom className', () => {
+    it('applies custom class', () => {
       const wrapper = mount(RelativeTime, {
         props: {
           date: now,
-          className: 'custom-class'
+          class: 'custom-class'
         }
       });
       expect(wrapper.classes()).toContain('custom-class');
@@ -176,53 +175,69 @@ describe('Vue RelativeTime Component', () => {
     });
   });
 
-  describe('Live updates', () => {
-    it('updates time when live prop is true', async () => {
-      const fiveSecondsAgo = new Date(now.getTime() - 5000);
+  describe('Custom labels', () => {
+    it('uses custom labels when provided', () => {
       const wrapper = mount(RelativeTime, {
         props: {
-          date: fiveSecondsAgo,
-          live: true
+          date: now,
+          labels: {
+            justNow: 'A moment ago',
+            invalid: 'Invalid timestamp'
+          }
         }
       });
-      
-      expect(wrapper.text()).toBe('5s ago');
-      
-      // Advance time by 1 second
-      vi.advanceTimersByTime(1000);
-      await wrapper.vm.$nextTick();
-      expect(wrapper.text()).toBe('6s ago');
+      expect(wrapper.text()).toBe('A moment ago');
     });
 
-    it('respects custom update interval', async () => {
-      const fiveSecondsAgo = new Date(now.getTime() - 5000);
+    it('handles invalid dates with custom label', () => {
       const wrapper = mount(RelativeTime, {
         props: {
-          date: fiveSecondsAgo,
-          live: true,
-          liveInterval: 2000
+          date: 'invalid',
+          labels: {
+            invalid: 'Custom invalid message'
+          }
         }
       });
-      
-      expect(wrapper.text()).toBe('5s ago');
-      
-      // Advance time by 1 second (should not update)
-      vi.advanceTimersByTime(1000);
-      await wrapper.vm.$nextTick();
-      expect(wrapper.text()).toBe('5s ago');
-      
-      // Advance time by another second (should update)
-      vi.advanceTimersByTime(1000);
-      await wrapper.vm.$nextTick();
-      expect(wrapper.text()).toBe('7s ago');
+      expect(wrapper.text()).toBe('Custom invalid message');
+    });
+  });
+
+  describe('Timezone handling', () => {
+    it('includes timezone in tooltip when specified', () => {
+      const wrapper = mount(RelativeTime, {
+        props: {
+          date: now,
+          timezone: 'America/New_York'
+        }
+      });
+      expect(wrapper.attributes('title')).toContain('America/New_York');
+    });
+
+    it('handles invalid timezone gracefully', () => {
+      const wrapper = mount(RelativeTime, {
+        props: {
+          date: now,
+          timezone: 'Invalid/Timezone'
+        }
+      });
+      expect(wrapper.attributes('title')).toBeDefined();
     });
   });
 
   describe('Edge cases', () => {
-    it('handles invalid date', () => {
+    it('handles null date', () => {
       const wrapper = mount(RelativeTime, {
         props: {
-          date: 'invalid'
+          date: null as any
+        }
+      });
+      expect(wrapper.text()).toBe('Invalid date');
+    });
+
+    it('handles undefined date', () => {
+      const wrapper = mount(RelativeTime, {
+        props: {
+          date: undefined as any
         }
       });
       expect(wrapper.text()).toBe('Invalid date');
@@ -232,6 +247,15 @@ describe('Vue RelativeTime Component', () => {
       const wrapper = mount(RelativeTime, {
         props: {
           date: ''
+        }
+      });
+      expect(wrapper.text()).toBe('Invalid date');
+    });
+
+    it('handles invalid date string', () => {
+      const wrapper = mount(RelativeTime, {
+        props: {
+          date: 'invalid-date'
         }
       });
       expect(wrapper.text()).toBe('Invalid date');

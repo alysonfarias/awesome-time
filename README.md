@@ -217,11 +217,8 @@ If you use a service like [Codecov](https://codecov.io/) or [Coveralls](https://
 Example (Codecov):
 
 ```md
-[![codecov](https://codecov.io/gh/<your-username>/awesome-time/branch/main/graph/badge.svg)](https://codecov.io/gh/<your-username>/awesome-time)
+[![codecov](https://codecov.io/gh/alysonfarias/awesome-time/branch/main/graph/badge.svg)](https://codecov.io/gh/alysonfarias/awesome-time)
 ```
-
-- Replace `<your-username>` with your GitHub username or org.
-- You'll need to set up Codecov or Coveralls in your CI (GitHub Actions, etc.) to upload coverage reports.
 
 **b. Ensure Core Logic is Covered**
 - Make sure your `src/core` logic is tested with unit tests (Jest, Vitest, etc.).
