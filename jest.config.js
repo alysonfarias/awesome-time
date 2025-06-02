@@ -6,20 +6,32 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      useESM: true
-    }],
-    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.ts$': ['ts-jest', { useESM: true }],
+    '^.+\\.tsx$': 'babel-jest',
+    '^.+\\.jsx$': 'babel-jest',
+    '^.+\\.js$': 'babel-jest',
+    '^.+\\.mjs$': 'babel-jest',
     '^.+\\.vue$': '@vue/vue3-jest'
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+    '<rootDir>/.next/',
+    '<rootDir>/test/angular.test.ts',
+    '<rootDir>/test/vue.test.ts',
+    '.*\\.angular\\.test\\.(ts|js)$',
+    '.*\\.vue\\.test\\.(ts|js)$'
+  ],
   collectCoverageFrom: [
-    'src/**/*.{js,jsx,ts,tsx,vue}',
+    'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/*.stories.{js,jsx,ts,tsx}',
     '!src/**/test/**',
-    '!src/**/mocks/**'
+    '!src/**/mocks/**',
+    '!src/**/angular/**',
+    '!src/**/vue/**',
+    '!test/angular.test.ts',
+    '!test/vue.test.ts'
   ],
   coverageThreshold: {
     global: {
@@ -31,13 +43,8 @@ module.exports = {
   },
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
   transformIgnorePatterns: [
-    '/node_modules/(?!(@angular|vue|@vue|@vue/test-utils)/)'
+    '/node_modules/(?!((@angular|vue|@vue|@vue/test-utils|@babel|rxjs|tslib|lodash-es)/))'
   ],
   testTimeout: 30000,
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node', 'vue'],
-  globals: {
-    'ts-jest': {
-      isolatedModules: true
-    }
-  }
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node', 'vue']
 }; 

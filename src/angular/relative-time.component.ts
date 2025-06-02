@@ -85,7 +85,7 @@ export class RelativeTimeComponent implements OnInit, OnChanges, OnDestroy {
       locale: this.locale
     });
     this.relativeTime = result.relativeTime;
-    this.tooltipText = result.tooltipText;
+    this.tooltipText = result.tooltipText ?? '';
   }
 
   private startLiveUpdates(): void {
