@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/alysonfarias/awesome-time/branch/main/graph/badge.svg)](https://codecov.io/gh/alysonfarias/awesome-time)
 # Awesome Time
 
 A modern, accessible, and internationalized relative time formatting library for React, Vue, and Angular.
@@ -201,29 +202,9 @@ Contributions are welcome! Please read our [contributing guidelines](CONTRIBUTIN
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-[![codecov](https://codecov.io/gh/<your-username>/awesome-time/branch/main/graph/badge.svg)](https://codecov.io/gh/<your-username>/awesome-time) 
-
 ## 🧪 Test Coverage
 
-[![codecov](https://codecov.io/gh/<your-username>/awesome-time/branch/main/graph/badge.svg)](https://codecov.io/gh/<your-username>/awesome-time)
-
-- 100% unit test coverage for core logic
-- E2E tests ensure consistent output across React, Vue, and Angular
-
-## 1. Test Coverage Badge
-
-**a. Add a Coverage Badge to README**
-If you use a service like [Codecov](https://codecov.io/) or [Coveralls](https://coveralls.io/), you can add a badge to your README.  
-Example (Codecov):
-
-```md
 [![codecov](https://codecov.io/gh/alysonfarias/awesome-time/branch/main/graph/badge.svg)](https://codecov.io/gh/alysonfarias/awesome-time)
-```
-
-**b. Ensure Core Logic is Covered**
-- Make sure your `src/core` logic is tested with unit tests (Jest, Vitest, etc.).
-- Run `npm run test -- --coverage` to generate a coverage report.
-- Aim for high coverage, especially for date formatting, edge cases, and error handling.
 
 ## 2. Cross-Framework E2E Tests
 
